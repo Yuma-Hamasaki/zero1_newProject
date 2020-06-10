@@ -15,7 +15,7 @@ public class Cell {
 		return openedNum;
 	}
 	
-	public int getMineNUm() {
+	public int getMineNum() {
 		return this.mineNum;
 	}
 	
