@@ -18,9 +18,7 @@ public class Minesweeper {
 	}
 
 	public boolean removeCover(int x, int y) {
-		boolean hasMine = false;
-		
-		hasMine = board.removeCover(x, y);
+		return board.removeCover(x, y);
 	}
 
 	public Cell[][] getCellList() {
