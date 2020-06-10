@@ -5,12 +5,9 @@ import static org.hamcrest.CoreMatchers.*;
 import org.junit.Test;
 
 public class CellTest {
-
 	@Test
 	public void test1() {
 		Cell cell1 = new Cell();
-		Cell cell2 = new Cell();
-		
 		int expected = 0;
 		int actual = Cell.getOpenedNum();
 		assertThat(actual, is(expected));
@@ -20,7 +17,6 @@ public class CellTest {
 	public void test2() {
 		Cell cell1 = new Cell();
 		Cell cell2 = new Cell();
-		
 		int expected = 0;
 		int actual = cell1.getMineNum();
 		assertThat(actual, is(expected));
@@ -69,7 +65,7 @@ public class CellTest {
 		boolean actual = cell2.isHidden();
 		assertThat(actual, is(expected));
 	}
-	
+	/*test７は別のテストクラスで行う。
 	@Test
 	public void test7() {
 		//前回までの状態の再現
@@ -82,7 +78,7 @@ public class CellTest {
 		int actual = Cell.getOpenedNum();
 		assertThat(actual, is(expected));
 	}
-	
+	*/
 	@Test
 	public void test8() {
 		//前回までの状態の再現
@@ -96,7 +92,7 @@ public class CellTest {
 		int actual = cell2.getMineNum();
 		assertThat(actual, is(expected));
 	}
-	
+	/*test７は別のテストクラスで行う。
 	@Test
 	public void test9() {
 		//前回までの状態の再現
@@ -111,4 +107,5 @@ public class CellTest {
 		int actual = Cell.getOpenedNum();
 		assertThat(actual, is(expected));
 	}
+	*/
 }
