@@ -44,7 +44,7 @@ public class Board {
 				//地雷を設置したマスの八近傍の数字を加算
 				for(int j = -1; j <= 1; j++) {
 					for(int k = -1; k <= 1; k++) {
-						if( j != 0 && k != 0) {
+						if( j != 0 || k != 0) {
 							if(randx + j >= 0 && randx + j < size - 1 && randy + k >= 0 && randy + k < size - 1) {
 								cells[randx + j][randy + k].addMineNum();
 						}
@@ -52,9 +52,37 @@ public class Board {
 						}
 					}
 				}
-
 			}
 			
+		}
+	}
+	public boolean removeCover(int x,int y) {
+		boolean hasMine = cells[x][y].hasMine();
+		if(hasMine == true) {
+			for(Cell[] cellsLine : cells) {
+				for(Cell cell : cellsLine) {
+					cell.open();
+				}
+			}
+			return true;
+		}
+		else {
+			cells[x][y].open();
+			int mineNum = cells[x][y].getMineNum();
+			if(mineNum == 0) {
+				for(int j = -1; j <= 1; j++) {
+					for(int k = -1; k <= 1; k++) {
+							if( j != 0 || k != 0) {
+								if(x + j >= 0 && x + j < size - 1 && y + k >= 0 && y + k < size - 1) {
+									if(cells[x + j][y + k].isHidden()) {
+										removeCover(x + j,y + k);
+									}
+								}
+							}
+					}
+				}
+			}
+			return false;
 		}
 	}
 

@@ -1,16 +1,17 @@
-package minesweeper;
+package Minesweeper;
 
 public class Minesweeper {
 
 	private int mineTotal;
 
-	private static int cellsNum;
+	private int cellsNum;
 
 	private Board board;
 
 	public Minesweeper(int mineTotal, int cellsNum) {
 		this.mineTotal = mineTotal;
 		this.cellsNum = cellsNum;
+		this.board = new Board(this.cellsNum);
 	}
 
 	public void setAllMine(int x, int y) {
@@ -18,13 +19,15 @@ public class Minesweeper {
 	}
 
 	public boolean removeCover(int x, int y) {
-		boolean hasMine = false;
-		
-		hasMine = board.removeCover(x, y);
+		return board.removeCover(x, y);
 	}
 
 	public Cell[][] getCellList() {
 		return board.getCellList();
+	}
+	
+	public int getMineTotal() {
+		return this.mineTotal;
 	}
 
 }

@@ -1,23 +1,24 @@
 package Minesweeper;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
 public class GUI extends JFrame implements MouseListener{
-	static int cellsNum = 9;
+	private static int cellsNum = 9;
+	private int mineTotal = 10;
 	private static JFrame frame = new JFrame("MineSweeper");
 	private static JPanel panel = new JPanel();
 	private ButtonWithCoordinates[][] buttonArray = new ButtonWithCoordinates[cellsNum][cellsNum];
 	private Minesweeper minesweeper;
-	private Board board;
 	public GUI() {
-		minesweeper = new Minesweeper();
+		minesweeper = new Minesweeper(cellsNum,mineTotal);
 		for(int i = 0;i < cellsNum;i++) {
 			for(int j = 0;j < cellsNum;j++) {
-				
 				buttonArray[j][i] = new ButtonWithCoordinates(j,i);
+				buttonArray[j][i].setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,20));;
 				buttonArray[j][i].addMouseListener(this);
 				panel.add(buttonArray[j][i]);
 			}
@@ -26,6 +27,7 @@ public class GUI extends JFrame implements MouseListener{
 		panel.setLayout(new GridLayout(cellsNum,cellsNum));
 		frame.add(panel);
 		frame.setSize(500,500);
+		frame.setResizable(false);
 		frame.setVisible(true);
 	}
 
@@ -43,19 +45,19 @@ public class GUI extends JFrame implements MouseListener{
 		int x = button.getCoordX();
 		int y = button.getCoordY();
 		boolean isMine;
-		int openNum = cell.getOpenedNum();
+		Cell[][] cells = minesweeper.getCellList();
+		int openNum = Cell.getOpenedNum();
 		if(openNum == 0) {
-			Minesweeper.setAllMine(x,y);
+			minesweeper.setAllMine(x,y);
 		}
-		isMine = Minesweeper.removeCover(x,y);
-		Cell[][] cells = Minesweeper.getCell();
-		updateDisplay(cells,button);
+		isMine = minesweeper.removeCover(x,y);
+		updateDisplay(cells);
 		if(isMine == true) {
 			displayGameover();
 			return;
 		}
-		openNum = cell.getOpenedNum();
-		if(openNum == (cellsNum*cellsNum) - Minesweeper.getMineTotal()) {
+		openNum = Cell.getOpenedNum();
+		if(openNum == (cellsNum*cellsNum) - minesweeper.getMineTotal()) {
 			displayWin();
 			return;
 		}
@@ -66,8 +68,8 @@ public class GUI extends JFrame implements MouseListener{
 			button.setIcon(null);
 		}
 		else {
-			ImageIcon icon = new ImageIcon("./hataa.png");
-			button.setIcon(icon);
+			ImageIcon icon = new ImageIcon("C:\\Users\\Administrator\\Desktop\\新しいフォルダー\\source\\src\\Minesweeper\\flag.png");
+				button.setIcon(icon);
 		}
 		button.setFlag(!flag);
 	}
@@ -83,10 +85,13 @@ public class GUI extends JFrame implements MouseListener{
 					continue;
 				}
 				else {
+					buttonArray[j][i].setEnabled(false);
+					buttonArray[j][i].removeMouseListener(this);
 					boolean hasMine = cells[j][i].hasMine();
 					if(hasMine == true) {
-						ImageIcon icon = new ImageIcon("./bakudan.png");
+						ImageIcon icon = new ImageIcon("C:\\Users\\Administrator\\Desktop\\新しいフォルダー\\source\\src\\Minesweeper\\mine.png");
 						buttonArray[j][i].setIcon(icon);
+						
 					}
 					else {
 						int bombNum = cells[j][i].getMineNum();
@@ -94,7 +99,7 @@ public class GUI extends JFrame implements MouseListener{
 							buttonArray[j][i].setText(String.valueOf(bombNum));
 						}
 						else {
-							buttonArray[j][i].setText(String.valueOf(bombNum));
+							buttonArray[j][i].setText("");
 						}
 					}
 				}
