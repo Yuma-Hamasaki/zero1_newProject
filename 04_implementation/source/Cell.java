@@ -14,8 +14,10 @@ public class Cell {
 	public static int getOpenedNum() {
 		return openedNum;
 	}
-	
-	public int getMineNUm() {
+	public static void addOpenedNum() {
+		openedNum++;
+	}
+	public int getMineNum() {
 		return this.mineNum;
 	}
 	
@@ -32,6 +34,7 @@ public class Cell {
 	}
 	
 	public void open() {
+		addOpenedNum();
 		this.hidden = false;
 	}
 	public boolean isHidden() {

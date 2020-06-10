@@ -6,14 +6,14 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class GUI extends JFrame implements MouseListener{
-	static int cellsNum = 9;
+	private static int cellsNum = 9;
+	private int mineTotal = 10;
 	private static JFrame frame = new JFrame("MineSweeper");
 	private static JPanel panel = new JPanel();
 	private ButtonWithCoordinates[][] buttonArray = new ButtonWithCoordinates[cellsNum][cellsNum];
 	private Minesweeper minesweeper;
-	private Board board;
 	public GUI() {
-		minesweeper = new Minesweeper();
+		minesweeper = new Minesweeper(cellsNum,mineTotal);
 		for(int i = 0;i < cellsNum;i++) {
 			for(int j = 0;j < cellsNum;j++) {
 				
@@ -43,19 +43,19 @@ public class GUI extends JFrame implements MouseListener{
 		int x = button.getCoordX();
 		int y = button.getCoordY();
 		boolean isMine;
-		int openNum = cell.getOpenedNum();
+		Cell[][] cells = minesweeper.getCellList();
+		int openNum = Cell.getOpenedNum();
 		if(openNum == 0) {
-			Minesweeper.setAllMine(x,y);
+			minesweeper.setAllMine(x,y);
 		}
-		isMine = Minesweeper.removeCover(x,y);
-		Cell[][] cells = Minesweeper.getCell();
-		updateDisplay(cells,button);
+		isMine = minesweeper.removeCover(x,y);
+		updateDisplay(cells);
 		if(isMine == true) {
 			displayGameover();
 			return;
 		}
-		openNum = cell.getOpenedNum();
-		if(openNum == (cellsNum*cellsNum) - Minesweeper.getMineTotal()) {
+		openNum = Cell.getOpenedNum();
+		if(openNum == (cellsNum*cellsNum) - minesweeper.getMineTotal()) {
 			displayWin();
 			return;
 		}
@@ -83,9 +83,11 @@ public class GUI extends JFrame implements MouseListener{
 					continue;
 				}
 				else {
+					buttonArray[j][i].setEnabled(false);
 					boolean hasMine = cells[j][i].hasMine();
 					if(hasMine == true) {
 						ImageIcon icon = new ImageIcon("./bakudan.png");
+						
 						buttonArray[j][i].setIcon(icon);
 					}
 					else {
@@ -94,7 +96,7 @@ public class GUI extends JFrame implements MouseListener{
 							buttonArray[j][i].setText(String.valueOf(bombNum));
 						}
 						else {
-							buttonArray[j][i].setText(String.valueOf(bombNum));
+							buttonArray[j][i].setText("");
 						}
 					}
 				}
