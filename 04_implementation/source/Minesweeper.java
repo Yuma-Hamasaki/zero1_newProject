@@ -1,4 +1,4 @@
-package マインスイーパー;
+package minesweeper;
 
 public class Minesweeper {
 
@@ -28,3 +28,4 @@ public class Minesweeper {
 	}
 
 }
+
