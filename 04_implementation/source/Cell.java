@@ -14,9 +14,11 @@ public class Cell {
 	public static int getOpenedNum() {
 		return openedNum;
 	}
+
 	public static void addOpenedNum() {
 		openedNum++;
 	}
+
 	public int getMineNum() {
 		return this.mineNum;
 	}
