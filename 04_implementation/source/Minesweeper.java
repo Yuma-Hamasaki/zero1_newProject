@@ -24,6 +24,10 @@ public class Minesweeper {
 	public Cell[][] getCellList() {
 		return board.getCellList();
 	}
+	
+	public int getMineTotal() {
+		return this.mineTotal;
+	}
 
 }
 
