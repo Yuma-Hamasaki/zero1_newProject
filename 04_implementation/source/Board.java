@@ -57,6 +57,7 @@ public class Board {
 	}
 	public boolean removeCover(int x,int y) {
 		boolean hasMine = cells[x][y].hasMine();
+		//cellに爆弾があった場合
 		if(hasMine == true) {
 			for(Cell[] cellsLine : cells) {
 				for(Cell cell : cellsLine) {
@@ -65,19 +66,25 @@ public class Board {
 			}
 			return true;
 		}
+		//cellに爆弾がなかった場合
 		else {
 			cells[x][y].open();
 			int mineNum = cells[x][y].getMineNum();
+			//八近傍の爆弾の数が0だった場合
 			if(mineNum == 0) {
+				//八近傍のの探索
 				for(int j = -1; j <= 1; j++) {
 					for(int k = -1; k <= 1; k++) {
-							if( j != 0 || k != 0) {
-								if(x + j >= 0 && x + j < size && y + k >= 0 && y + k < size) {
-									if(cells[x + j][y + k].isHidden()) {
-										removeCover(x + j,y + k);
-									}
+						//現在のマス以外の場合
+						if( j != 0 || k != 0) {
+							//盤の外側を参照しない場合
+							if(x + j >= 0 && x + j < size && y + k >= 0 && y + k < size) {
+								//八近傍のセルが開いていなければ再帰的にカバーを取り除く
+								if(cells[x + j][y + k].isHidden()) {
+									removeCover(x + j,y + k);
 								}
 							}
+						}
 					}
 				}
 			}
