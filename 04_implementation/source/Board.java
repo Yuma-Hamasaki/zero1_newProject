@@ -30,8 +30,8 @@ public class Board {
 		int randy;
 		for(int i = 0; i < mineNum;) {
 			//地雷作成時のランダムな座標生成
-			randx = rand.nextInt(size - 1);
-			randy = rand.nextInt(size - 1);	
+			randx = rand.nextInt(size);
+			randy = rand.nextInt(size);	
 			
 			Cell cell = cells[randx][randy];
 			//地雷の設置
@@ -45,10 +45,9 @@ public class Board {
 				for(int j = -1; j <= 1; j++) {
 					for(int k = -1; k <= 1; k++) {
 						if( j != 0 || k != 0) {
-							if(randx + j >= 0 && randx + j < size - 1 && randy + k >= 0 && randy + k < size - 1) {
+							if(randx + j >= 0 && randx + j < size && randy + k >= 0 && randy + k < size) {
 								cells[randx + j][randy + k].addMineNum();
-						}
-						
+							}
 						}
 					}
 				}
@@ -73,7 +72,7 @@ public class Board {
 				for(int j = -1; j <= 1; j++) {
 					for(int k = -1; k <= 1; k++) {
 							if( j != 0 || k != 0) {
-								if(x + j >= 0 && x + j < size - 1 && y + k >= 0 && y + k < size - 1) {
+								if(x + j >= 0 && x + j < size && y + k >= 0 && y + k < size) {
 									if(cells[x + j][y + k].isHidden()) {
 										removeCover(x + j,y + k);
 									}
