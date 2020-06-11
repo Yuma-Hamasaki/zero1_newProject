@@ -73,14 +73,14 @@ public class GUI extends JFrame implements MouseListener{
 		}
 		button.setFlag(!flag);
 	}
-	public void displayWin() {
+	private void displayWin() {
 		JLabel label = new JLabel("You win!!");
 		label.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,50));
 		JOptionPane.showMessageDialog(null,label,"Result",JOptionPane.PLAIN_MESSAGE);
 	
 	}
 	
-	public void displayGameover() {
+	private void displayGameover() {
 		JLabel label = new JLabel("You lose...");
 		label.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,50));
 		JOptionPane.showMessageDialog(null,label,"Result",JOptionPane.PLAIN_MESSAGE);
@@ -120,7 +120,6 @@ public class GUI extends JFrame implements MouseListener{
 	}
 	
 	
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
