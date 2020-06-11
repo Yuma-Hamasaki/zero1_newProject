@@ -1,7 +1,6 @@
 package Minesweeper;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.*;
@@ -12,8 +11,6 @@ public class GUI extends JFrame implements MouseListener{
 	private int mineTotal = 10;
 	private JFrame frame = new JFrame("MineSweeper");
 	private JPanel panel = new JPanel();
-	private JPanel win_panel = new JPanel();
-	private JPanel lose_panel = new JPanel();
 	private ButtonWithCoordinates[][] buttonArray = new ButtonWithCoordinates[cellsNum][cellsNum];
 	private Minesweeper minesweeper;
 	public GUI() {
@@ -71,7 +68,7 @@ public class GUI extends JFrame implements MouseListener{
 			button.setIcon(null);
 		}
 		else {
-			ImageIcon icon = new ImageIcon("C:\\Users\\Administrator\\Desktop\\新しいフォルダー\\source\\src\\Minesweeper\\flag.png");
+			ImageIcon icon = new ImageIcon("src\\Minesweeper\\flag.png");
 				button.setIcon(icon);
 		}
 		button.setFlag(!flag);
@@ -79,17 +76,15 @@ public class GUI extends JFrame implements MouseListener{
 	public void displayWin() {
 		JLabel label = new JLabel("You win!!");
 		label.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,50));
-		win_panel.add(label);
-		frame.remove(panel);
-		frame.add(win_panel);
+		JOptionPane.showMessageDialog(null,label,"Result",JOptionPane.PLAIN_MESSAGE);
+	
 	}
 	
 	public void displayGameover() {
 		JLabel label = new JLabel("You lose...");
 		label.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,50));
-		lose_panel.add(label);
-		frame.remove(panel);
-		frame.add(lose_panel);
+		JOptionPane.showMessageDialog(null,label,"Result",JOptionPane.PLAIN_MESSAGE);
+	
 	}
 	
 	public void updateDisplay(Cell[][] cells) {
@@ -100,11 +95,13 @@ public class GUI extends JFrame implements MouseListener{
 					continue;
 				}
 				else {
-					buttonArray[j][i].removeMouseListener(this);
 					buttonArray[j][i].setEnabled(false);
+					buttonArray[j][i].removeMouseListener(this);
+					buttonArray[j][i].setIcon(null);
+					
 					boolean hasMine = cells[j][i].hasMine();
 					if(hasMine == true) {
-						ImageIcon icon = new ImageIcon("C:\\Users\\Administrator\\Desktop\\新しいフォルダー\\source\\src\\Minesweeper\\mine.png");
+						ImageIcon icon = new ImageIcon("src\\Minesweeper\\mine.png");
 						buttonArray[j][i].setIcon(icon);
 						
 					}
