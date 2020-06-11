@@ -7,7 +7,7 @@ public class Board {
 	private Cell cells[][];
 	private int size;
 	
-	Board(int size){
+	public Board(int size){
 		this.size = size;
 		//セルの作成
 		cells = new Cell[size][size];
