@@ -6,7 +6,7 @@ public class Cell {
 	private boolean hidden ;
 	private boolean mine;
 	
-	Cell(){
+	public Cell(){
 		this.hidden = true;
 		
 	}
