@@ -9,16 +9,16 @@ import javax.swing.*;
 public class GUI extends JFrame implements MouseListener{
 	private static int cellsNum = 9;
 	private int mineTotal = 10;
-	private static JFrame frame = new JFrame("MineSweeper");
-	private static JPanel panel = new JPanel();
+	private JFrame frame = new JFrame("MineSweeper");
+	private JPanel panel = new JPanel();
 	private ButtonWithCoordinates[][] buttonArray = new ButtonWithCoordinates[cellsNum][cellsNum];
 	private Minesweeper minesweeper;
 	public GUI() {
-		minesweeper = new Minesweeper(cellsNum,mineTotal);
+		minesweeper = new Minesweeper(mineTotal,cellsNum);
 		for(int i = 0;i < cellsNum;i++) {
 			for(int j = 0;j < cellsNum;j++) {
 				buttonArray[j][i] = new ButtonWithCoordinates(j,i);
-				buttonArray[j][i].setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,20));;
+				buttonArray[j][i].setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,20));
 				buttonArray[j][i].addMouseListener(this);
 				panel.add(buttonArray[j][i]);
 			}
@@ -68,14 +68,24 @@ public class GUI extends JFrame implements MouseListener{
 			button.setIcon(null);
 		}
 		else {
-			ImageIcon icon = new ImageIcon("C:\\Users\\Administrator\\Desktop\\新しいフォルダー\\source\\src\\Minesweeper\\flag.png");
+			ImageIcon icon = new ImageIcon("src\\Minesweeper\\flag.png");
 				button.setIcon(icon);
 		}
 		button.setFlag(!flag);
 	}
-	public void displayWin() {}
+	public void displayWin() {
+		JLabel label = new JLabel("You win!!");
+		label.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,50));
+		JOptionPane.showMessageDialog(null,label,"Result",JOptionPane.PLAIN_MESSAGE);
 	
-	public void displayGameover() {}
+	}
+	
+	public void displayGameover() {
+		JLabel label = new JLabel("You lose...");
+		label.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,50));
+		JOptionPane.showMessageDialog(null,label,"Result",JOptionPane.PLAIN_MESSAGE);
+	
+	}
 	
 	public void updateDisplay(Cell[][] cells) {
 		for(int i = 0; i < cellsNum;i++) {
@@ -87,9 +97,11 @@ public class GUI extends JFrame implements MouseListener{
 				else {
 					buttonArray[j][i].setEnabled(false);
 					buttonArray[j][i].removeMouseListener(this);
+					buttonArray[j][i].setIcon(null);
+					
 					boolean hasMine = cells[j][i].hasMine();
 					if(hasMine == true) {
-						ImageIcon icon = new ImageIcon("C:\\Users\\Administrator\\Desktop\\新しいフォルダー\\source\\src\\Minesweeper\\mine.png");
+						ImageIcon icon = new ImageIcon("src\\Minesweeper\\mine.png");
 						buttonArray[j][i].setIcon(icon);
 						
 					}
