@@ -120,7 +120,6 @@ public class GUI extends JFrame implements MouseListener{
 	}
 	
 	
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
