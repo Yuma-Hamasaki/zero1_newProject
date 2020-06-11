@@ -7,20 +7,41 @@ import org.junit.Before;
 
 public class Board_Cell_JoinTest {
 	Board board;
-	Cell[][] cellList;
+	//Cell[][] cellList;
 	int x;
 	@Before
 	public void setUp() {
-		Board board = new Board(9);
-		cellList = board.getCellList();
+		board = new Board(9);
 	}
 	
 	@Test
 	public void test1_1() {
 		boolean expected = true;
-		cellList[1][1].setMine();
+		board.getCellList()[1][1].setMine();
 		boolean actual = board.removeCover(1,1);
 		
 		assertThat(actual, is(expected));
+	}
+	
+	@Test
+	public void test1_2() {
+		boolean expected = false;
+		boolean actual = board.removeCover(1,1);
+		assertThat(actual, is(expected));
+	}
+	
+	@Test
+	public void test2() {
+		board.setMine(1, 1, 10);
+		for (int y=0; y<9; y++) {
+			for (int x=0; x<9; x++) {
+				if(board.getCellList()[x][y].hasMine()) {
+					System.out.print("m");
+				}else {
+					System.out.print(board.getCellList()[x][y].getMineNum());
+				}
+			}
+			System.out.println("");
+		}
 	}
 }
