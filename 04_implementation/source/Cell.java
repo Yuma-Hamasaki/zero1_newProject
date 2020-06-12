@@ -1,5 +1,7 @@
 package Minesweeper;
 
+import java.awt.Color;
+
 public class Cell {
 	private static int openedNum;
 	private int mineNum;
@@ -41,6 +43,15 @@ public class Cell {
 	}
 	public boolean isHidden() {
 		return this.hidden;
+	}
+	public Color getColor() {
+		switch(mineNum){
+			case 1:
+				return Color.RED;
+			default:
+				return Color.black;
+		}
+		
 	}
 	
 }
