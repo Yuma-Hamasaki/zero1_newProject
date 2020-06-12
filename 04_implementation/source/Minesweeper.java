@@ -41,7 +41,7 @@ public class Minesweeper {
 		int diff = (int)(diffMillis/1000);
 		int Min = diff/60;
 		int Sec = diff%60;
-		return Min + " : " + Sec;
+		return Min + ":" + Sec;
 	}
 
 }
