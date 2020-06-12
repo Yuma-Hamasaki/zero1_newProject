@@ -1,35 +1,67 @@
 package Minesweeper;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUI extends JFrame implements MouseListener{
-	private static int cellsNum = 9;
-	private int mineTotal = 10;
+public class GUI extends JFrame implements MouseListener,ActionListener{
+	private int cellsNum;
+	private int mineTotal;
 	private JFrame frame = new JFrame("MineSweeper");
-	private JPanel panel = new JPanel();
-	private ButtonWithCoordinates[][] buttonArray = new ButtonWithCoordinates[cellsNum][cellsNum];
+	private JPanel startPanel = new JPanel();
+	private JPanel gamePanel = new JPanel();
+	private JPanel infoPanel = new JPanel();
+	private ButtonWithCoordinates[][] buttonArray = new ButtonWithCoordinates[]][];
 	private Minesweeper minesweeper;
+	private Level level;
 	public GUI() {
+		frame.setSize(500,500);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public void start() {
+		level = Level.NOMAL;
+	}
+	public void gameStart() {
+		switch(level) {
+			case EASY:
+				mineTotal = 3;
+				cellsNum = 5;
+				break;
+			case NOMAL:
+				mineTotal = 20;
+				cellsNum = 10;
+				break;
+			case HARD:
+				mineTotal = 56;
+				cellsNum = 15;
+				break;
+		}
+		
 		minesweeper = new Minesweeper(mineTotal,cellsNum);
+		ButtonWithCoordinates[][] buttonArray = new ButtonWithCoordinates[cellsNum][cellsNum];
 		for(int i = 0;i < cellsNum;i++) {
 			for(int j = 0;j < cellsNum;j++) {
 				buttonArray[j][i] = new ButtonWithCoordinates(j,i);
 				buttonArray[j][i].setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,20));
 				buttonArray[j][i].addMouseListener(this);
-				panel.add(buttonArray[j][i]);
+				gamePanel.add(buttonArray[j][i]);
 			}
 		}
-		panel.setPreferredSize(new Dimension(270,270));
-		panel.setLayout(new GridLayout(cellsNum,cellsNum));
-		frame.add(panel);
-		frame.setSize(500,500);
-		frame.setResizable(false);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gamePanel.setLayout(new GridLayout(cellsNum,cellsNum));
+		JLabel flagLabel = new JLabel("Flag");
+		JLabel mineLabel = new JLabel("Mine");
+		infoPanel.add(flagLabel);
+		infoPanel.add(mineLabel);
+		infoPanel.setLayout(new FlowLayout());
+		frame.add("Center",gamePanel);
+		frame.add("South", infoPanel);
 	}
 
 	@Override
@@ -85,7 +117,9 @@ public class GUI extends JFrame implements MouseListener{
 		JLabel label = new JLabel("You lose...");
 		label.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,50));
 		JOptionPane.showMessageDialog(null,label,"Result",JOptionPane.PLAIN_MESSAGE);
-	
+		frame.remove(game_panel);
+		frame.remove(mine_flag_num);
+		SwingUtilities.updateComponentTreeUI(frame);
 	}
 	
 	public void updateDisplay(Cell[][] cells) {
@@ -103,12 +137,13 @@ public class GUI extends JFrame implements MouseListener{
 					boolean hasMine = cells[j][i].hasMine();
 					if(hasMine == true) {
 						ImageIcon icon = new ImageIcon("src\\Minesweeper\\mine.png");
-						buttonArray[j][i].setIcon(icon);
+						buttonArray[j][i].setDisabledIcon(icon);
 						
 					}
 					else {
 						int bombNum = cells[j][i].getMineNum();
 						if(0 < bombNum) {
+							buttonArray[j][i].setForeground(cells[j][i].getColor());
 							buttonArray[j][i].setText(String.valueOf(bombNum));
 						}
 						else {
@@ -120,7 +155,11 @@ public class GUI extends JFrame implements MouseListener{
 		}
 	}
 	
-	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -141,4 +180,5 @@ public class GUI extends JFrame implements MouseListener{
 		// TODO 自動生成されたメソッド・スタブ
 		
 	}
+
 }
