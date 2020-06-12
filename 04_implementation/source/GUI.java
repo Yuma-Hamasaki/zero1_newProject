@@ -16,7 +16,7 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 	private JPanel startPanel = new JPanel();
 	private JPanel gamePanel = new JPanel();
 	private JPanel infoPanel = new JPanel();
-	private ButtonWithCoordinates[][] buttonArray = new ButtonWithCoordinates[]][];
+	private ButtonWithCoordinates[][] buttonArray;
 	private Minesweeper minesweeper;
 	private Level level;
 	public GUI() {
@@ -45,7 +45,7 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 		}
 		
 		minesweeper = new Minesweeper(mineTotal,cellsNum);
-		ButtonWithCoordinates[][] buttonArray = new ButtonWithCoordinates[cellsNum][cellsNum];
+		buttonArray = new ButtonWithCoordinates[cellsNum][cellsNum];
 		for(int i = 0;i < cellsNum;i++) {
 			for(int j = 0;j < cellsNum;j++) {
 				buttonArray[j][i] = new ButtonWithCoordinates(j,i);
@@ -117,8 +117,8 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 		JLabel label = new JLabel("You lose...");
 		label.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,50));
 		JOptionPane.showMessageDialog(null,label,"Result",JOptionPane.PLAIN_MESSAGE);
-		frame.remove(game_panel);
-		frame.remove(mine_flag_num);
+		frame.remove(gamePanel);
+		frame.remove(infoPanel);
 		SwingUtilities.updateComponentTreeUI(frame);
 	}
 	
