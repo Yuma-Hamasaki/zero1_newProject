@@ -20,7 +20,9 @@ public class Cell {
 	public static void addOpenedNum() {
 		openedNum++;
 	}
-
+	public static void zeroOpenedNum() {
+		openedNum = 0;
+	}
 	public int getMineNum() {
 		return this.mineNum;
 	}
@@ -44,12 +46,16 @@ public class Cell {
 	public boolean isHidden() {
 		return this.hidden;
 	}
-	public Color getColor() {
+	public String getColor() {
 		switch(mineNum){
 			case 1:
-				return Color.RED;
+				return "blue";
+			case 2:
+				return "green";
+			case 3:
+				return "red";
 			default:
-				return Color.black;
+				return "black";
 		}
 		
 	}
