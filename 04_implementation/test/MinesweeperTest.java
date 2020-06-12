@@ -1,4 +1,4 @@
-package Minesweeper;
+package minesweeper_nigi;
 
 import static org.junit.Assert.*;
 
@@ -57,4 +57,22 @@ public class MinesweeperTest {
 		}
 	}	
 	
+	@Test
+	public void testCase_4() {
+		minesweeper.setAllMine(8, 8);
+
+		minesweeper.startTime();
+		try {
+			Thread.sleep(30000);
+		}
+		catch(InterruptedException e) {
+			
+		}
+		
+		String actual = minesweeper.getTime();
+		String expected_result = "0:30";
+		
+		assertThat(actual, is(expected_result));
+		
+	}	
 }
