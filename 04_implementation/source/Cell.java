@@ -47,6 +47,10 @@ public class Cell {
 	public Color getColor() {
 		switch(mineNum){
 			case 1:
+				return Color.BLUE;
+			case 2:
+				return Color.GREEN;
+			case 3:
 				return Color.RED;
 			default:
 				return Color.black;
