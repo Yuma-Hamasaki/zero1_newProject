@@ -2,6 +2,6 @@ package Minesweeper;
 
 public enum Level {
 	EASY,
-	NOMAL,
+	NORMAL,
 	HARD
 }
