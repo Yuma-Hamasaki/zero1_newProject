@@ -46,16 +46,20 @@ public class Cell {
 	public boolean isHidden() {
 		return this.hidden;
 	}
-	public String getColor() {
+	public Color getColor() {
 		switch(mineNum){
 			case 1:
-				return "blue";
+				return Color.BLUE;
 			case 2:
-				return "green";
+				return Color.GREEN;
 			case 3:
-				return "red";
+				return Color.RED;
+			case 4:
+				return Color.MAGENTA;
+			case 5:
+				return Color.ORANGE;
 			default:
-				return "black";
+				return Color.BLACK;
 		}
 		
 	}
