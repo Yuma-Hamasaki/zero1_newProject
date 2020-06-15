@@ -41,10 +41,9 @@ public class Minesweeper {
 		System.out.println(diffMillis);
 		int diff = (int)(diffMillis/1000);
 		System.out.println(diff);
-		int Min = diff/60;
-		int Sec = diff%60;
-		System.out.println(Min + " : " + Sec);
-		return Min + " : " + Sec;
+		String Min = String.format("%02d", diff/60);
+		String Sec = String.format("%02d", diff%60);
+		return Min + ":" + Sec;
 	}
 
 }
