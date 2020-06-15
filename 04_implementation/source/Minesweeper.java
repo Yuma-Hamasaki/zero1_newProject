@@ -38,9 +38,7 @@ public class Minesweeper {
 	public String getTime() {
 		Long currentTime = System.currentTimeMillis();
 		long diffMillis = currentTime - time;
-		System.out.println(diffMillis);
 		int diff = (int)(diffMillis/1000);
-		System.out.println(diff);
 		String Min = String.format("%02d", diff/60);
 		String Sec = String.format("%02d", diff%60);
 		return Min + ":" + Sec;
