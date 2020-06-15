@@ -30,14 +30,13 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 	public GUI() {
 		flagLabel.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,20));
 		mineLabel.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,20));
-		frame.setSize(500,500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		String lafClassName = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
 		try{
-		  UIManager.setLookAndFeel(lafClassName);
-		  SwingUtilities.updateComponentTreeUI(this);
+			UIManager.setLookAndFeel(lafClassName);
+			SwingUtilities.updateComponentTreeUI(this);
 		}catch(Exception e){
-		  e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 	
@@ -141,7 +140,7 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 		button.setFlag(!flag);
 	}
 	private void displayWin() {
-		JLabel label = new JLabel("You win!!\n" + minesweeper.getTime());
+		JLabel label = new JLabel("<html><body><center>You win!!<br>" + minesweeper.getTime()+"</center></body></html>");
 		label.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,50));
 		JOptionPane.showMessageDialog(null,label,"Result",JOptionPane.PLAIN_MESSAGE);
 		gameReset();
@@ -181,10 +180,13 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 					buttonArray[j][i].removeMouseListener(this);
 					buttonArray[j][i].setIcon(null);
 					boolean hasMine = cells[j][i].hasMine();
+					if(buttonArray[j][i].getFlag()) {
+						flagNum--;
+						flagLabel.setText("Flag : " + String.valueOf(flagNum)+"　");
+					}
 					if(hasMine == true) {
 						ImageIcon icon = new ImageIcon("src\\Minesweeper\\mine.png");
 						buttonArray[j][i].setIcon(icon);
-						
 					}
 					else {
 						int bombNum = cells[j][i].getMineNum();
@@ -220,6 +222,7 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 		SwingUtilities.updateComponentTreeUI(frame);
 		gameStart();
 	}	
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO 自動生成されたメソッド・スタブ
