@@ -1,4 +1,4 @@
-package minesweeper_nigi;
+package minesweeper_nig;
 
 import static org.junit.Assert.*;
 
@@ -42,7 +42,7 @@ public class MinesweeperTest {
 	
 	@Test
 	public void testCase_3() {
-		minesweeper.setAllMine(8, 8);
+		minesweeper.setAllMine(4, 4);
 		Cell[][] cellList = minesweeper.getCellList();
 
 		for (int y=0; y<9; y++) {
@@ -70,7 +70,7 @@ public class MinesweeperTest {
 		}
 		
 		String actual = minesweeper.getTime();
-		String expected_result = "0:30";
+		String expected_result = "0 : 30";
 		
 		assertThat(actual, is(expected_result));
 		
