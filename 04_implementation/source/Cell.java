@@ -51,13 +51,9 @@ public class Cell {
 			case 1:
 				return Color.BLUE;
 			case 2:
-				return Color.GREEN;
+				return Color.YELLOW;
 			case 3:
 				return Color.RED;
-			case 4:
-				return Color.MAGENTA;
-			case 5:
-				return Color.ORANGE;
 			default:
 				return Color.BLACK;
 		}
