@@ -32,6 +32,13 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 		mineLabel.setFont(new Font(Font.DIALOG_INPUT,Font.BOLD,20));
 		frame.setSize(500,500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		String lafClassName = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+		try{
+		  UIManager.setLookAndFeel(lafClassName);
+		  SwingUtilities.updateComponentTreeUI(this);
+		}catch(Exception e){
+		  e.printStackTrace();
+		}
 	}
 	
 	public void displayStartPanel() {
@@ -170,7 +177,7 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 					continue;
 				}
 				else {
-					buttonArray[j][i].setEnabled(false);
+					buttonArray[j][i].setEnabled(false,cells[j][i].getColor());
 					buttonArray[j][i].removeMouseListener(this);
 					buttonArray[j][i].setIcon(null);
 					boolean hasMine = cells[j][i].hasMine();
@@ -182,7 +189,7 @@ public class GUI extends JFrame implements MouseListener,ActionListener{
 					else {
 						int bombNum = cells[j][i].getMineNum();
 						if(0 < bombNum) {
-							buttonArray[j][i].setText("<html><font color=red>" + String.valueOf(bombNum)+"</font></html>");
+							buttonArray[j][i].setText(String.valueOf(bombNum));
 						}
 						else {
 							buttonArray[j][i].setText("");

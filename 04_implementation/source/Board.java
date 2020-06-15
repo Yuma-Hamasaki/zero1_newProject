@@ -6,13 +6,15 @@ import java.util.Random;
 public class Board {
 	private Cell cells[][];
 	private int size;
-
-	// 近傍のマスを参照する際に使用する変数
+	
 	private int[][] neighbor =
-			{{-1, 1}, {0, 1}, {1, 1},
-			 {-1, 0},         {1, 0},
-			 {-1, -1}, {0, -1}, {1, -1}};
+		{
+			{-1, 1},	{0, 1},		{1, 1},
+			{-1, 0},				{1, 0},
+			{-1, -1},	{0, -1},	{1, -1}
+		};
 
+	
 	public Board(int size){
 		this.size = size;
 		//セルの作成
@@ -23,13 +25,13 @@ public class Board {
 				cells[i][j] =  cell;
 			}
 		}
-
+		
 	}
-
+	
 	public Cell[][] getCellList() {
 		return this.cells;
 	}
-
+	
 	public void setMine(int x, int y, int mineNum) {
 		Random rand = new Random();
 		int randx;
@@ -38,15 +40,15 @@ public class Board {
 			//地雷作成時のランダムな座標生成
 			randx = rand.nextInt(size);
 			randy = rand.nextInt(size);	
-
+			
 			Cell cell = cells[randx][randy];
 			//地雷の設置
-
-			if(cell.hasMine() == false &&( randx != x  && randy != y)) {
+			if(cell.hasMine() == false &&( (randx < x - 1  || x + 1 < randx) || (randy < y - 1  || y + 1 < randy))) {
 				System.out.println(randx + " , " + randy); //デバック用
 				cell.setMine();
 				i++;
-
+				
+				//地雷を設置したマスの八近傍の数字を加算
 				int xNeighbor;
 				int yNeighbor;
 				//地雷を設置したマスの八近傍の数字を加算
@@ -59,10 +61,9 @@ public class Board {
 					}
 				}
 			}
+			
 		}
 	}
-
-
 	public boolean removeCover(int x,int y) {
 		boolean hasMine = cells[x][y].hasMine();
 		//cellに爆弾があった場合
@@ -80,7 +81,7 @@ public class Board {
 			int mineNum = cells[x][y].getMineNum();
 			//八近傍の爆弾の数が0だった場合
 			if(mineNum == 0) {
-				//八近傍の探索
+				//八近傍のの探索
 				int xNeighbor;
 				int yNeighbor;
 				for(int[] xy : neighbor) {
@@ -93,10 +94,9 @@ public class Board {
 					}
 				}
 			}
+			return false;
 		}
-		return false;
 	}
-
 	private boolean inBoard(int x, int y) {
 		if(x < 0 || y < 0) {
 			return false;
